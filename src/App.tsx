@@ -46,7 +46,7 @@ console.log(tasks)
           <Routes>
             <Route index element={<MainPage />} />
             <Route path="register" element={<FormPage tasks={tasks} />} />
-            <Route path="/socials" element={<SocialForm />} />
+            <Route path="/admin" element={<SocialForm />} />
  
           </Routes>
         </BrowserRouter>
