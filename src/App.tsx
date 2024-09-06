@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 // import WebApp from "@twa-dev/sdk";
 import './index.css'
@@ -42,14 +42,14 @@ console.log(tasks)
   return (
     <Flex align={"center"} justify={"center"} minH={"100vh"} bgImage={'/bg.jpg'} bgRepeat={'no-repeat'} bgPosition={'center'} bgSize={'cover'} w={'100vw'}>
       <Box>
-        <BrowserRouter>
+        <Router>
           <Routes>
             <Route index element={<MainPage />} />
             <Route path="register" element={<FormPage tasks={tasks} />} />
             <Route path="/admin" element={<SocialForm />} />
  
           </Routes>
-        </BrowserRouter>
+        </Router>
       </Box>
     </Flex>
   );
