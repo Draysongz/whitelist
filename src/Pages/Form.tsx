@@ -7,7 +7,8 @@ import {
   Input,
   Radio,
   RadioGroup,
-  Stack
+  Stack,
+  useToast
 } from "@chakra-ui/react";
 
 interface FormData {
@@ -32,6 +33,8 @@ const FormPage: React.FC = () => {
       [name]: value,
     }));
   };
+
+  const toast = useToast()
 
   const handleTwitterTaskChange = (value: string) => {
     setValue(value);
@@ -58,6 +61,17 @@ const FormPage: React.FC = () => {
       alert(data.msg);
     })
     .catch(err => console.log(err));
+    setFormData({
+      name: '',
+      wallet: ''
+    })
+    toast({
+      title: 'Details submitted.',
+          description: "We've receieved your response",
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+    })
     console.log('Form submitted:', formData);
     // Add your form submission logic here
   };
