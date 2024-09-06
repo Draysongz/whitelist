@@ -4,6 +4,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import './index.css'
 import MainPage from './Pages/MainPage'
 import FormPage from './Pages/Form'
+import SocialForm from "./Pages/SocialForm";
 
 function App() {
   // const BackButton = WebApp.BackButton;
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route index element={<MainPage />} />
             <Route path="register" element={<FormPage />} />
+            <Route path="socials" element={<SocialForm />} />
 
           </Routes>
         </BrowserRouter>
