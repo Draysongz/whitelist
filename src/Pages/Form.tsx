@@ -15,6 +15,8 @@ interface FormData {
   wallet: string;
 }
 
+const scriptUrl = "https://script.google.com/macros/s/AKfycbz6yPuqPdpX1ZKi9sIrXHeM0jamx-nQBJ4_HjbjRIBPcsKmYdquKsDDtmI0mcAiLSQ4YQ/exec"
+
 const FormPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -42,6 +44,20 @@ const FormPage: React.FC = () => {
       alert("Please complete the Twitter task before submitting.");
       return;
     }
+     fetch(scriptUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),  // Stringify the form data
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      alert(data.msg);
+    })
+    .catch(err => console.log(err));
     console.log('Form submitted:', formData);
     // Add your form submission logic here
   };
