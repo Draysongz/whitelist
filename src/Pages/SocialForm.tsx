@@ -5,15 +5,21 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 interface FormData {
   username: string;
   link: string;
 }
 
+
+
 const SocialForm: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({ username: '', link: '' });
+    const toast = useToast()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
@@ -23,10 +29,38 @@ const SocialForm: React.FC = () => {
       });
     };
   
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      alert(`X Handle: ${formData.username}, X post url: ${formData.link}`);
-    };
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    try {
+      // Replace 'collectionName' with your actual Firestore collection name
+      const docRef = doc(db, "Tasks", "8oTsV2OwNOE6uL629vz1"); 
+      await updateDoc(docRef, {
+        twitter: formData.username,
+        postUrl: formData.link
+      });
+      
+      toast({
+        title: 'Task uploaded.',
+        description: "Your data has been successfully updated.",
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+
+      setFormData({ username: '', link: '' }); // Clear form after submission
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: 'Submission failed.',
+        description: "There was an error submitting your data.",
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
 
 
   return (

@@ -10,15 +10,23 @@ import {
   Stack,
   useToast
 } from "@chakra-ui/react";
+import { Task } from "../App";
+
+
 
 interface FormData {
   name: string;
   wallet: string;
 }
 
+interface FormPageProps {
+  tasks: Task[]; // Expect an array of Task
+}
+
+
 const scriptUrl = "https://script.google.com/macros/s/AKfycbz6yPuqPdpX1ZKi9sIrXHeM0jamx-nQBJ4_HjbjRIBPcsKmYdquKsDDtmI0mcAiLSQ4YQ/exec"
 
-const FormPage: React.FC = () => {
+const FormPage: React.FC<FormPageProps> = ({tasks}) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     wallet: '',
@@ -33,6 +41,8 @@ const FormPage: React.FC = () => {
       [name]: value,
     }));
   };
+
+  console.log(tasks)
 
   const toast = useToast()
 
@@ -122,7 +132,7 @@ const FormPage: React.FC = () => {
             <FormLabel>
               Have you followed{" "}
               <a
-                href="https://x.com/mongrel_btc?s=21&t=b8FPrLo4XS9IvogfmKElfw"
+                href={tasks[0]?.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 color="red"
@@ -130,7 +140,7 @@ const FormPage: React.FC = () => {
                 @Mongrel_btc
               </a>?*{" "}
               (<a
-                href="https://x.com/mongrel_btc?s=21&t=b8FPrLo4XS9IvogfmKElfw"
+                href={tasks[0]?.postUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 color="red"
