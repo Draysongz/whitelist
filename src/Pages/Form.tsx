@@ -5,34 +5,31 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Radio,
-  RadioGroup,
-  Stack,
   useToast
 } from "@chakra-ui/react";
 import { Task } from "../App";
 
-
-
 interface FormData {
   name: string;
   wallet: string;
+  retweetUrl: string;
 }
 
 interface FormPageProps {
   tasks: Task[]; // Expect an array of Task
 }
 
-
 const scriptUrl = "https://script.google.com/macros/s/AKfycbz6yPuqPdpX1ZKi9sIrXHeM0jamx-nQBJ4_HjbjRIBPcsKmYdquKsDDtmI0mcAiLSQ4YQ/exec"
 
-const FormPage: React.FC<FormPageProps> = ({tasks}) => {
+const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     wallet: '',
+    retweetUrl: '',
   });
-  const [isTwitterTaskComplete, setIsTwitterTaskComplete] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('');
+
+  const [isRetweetUrlValid, setIsRetweetUrlValid] = useState<boolean>(false);
+  const toast = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,50 +37,47 @@ const FormPage: React.FC<FormPageProps> = ({tasks}) => {
       ...prevData,
       [name]: value,
     }));
-  };
 
-  console.log(tasks)
-
-  const toast = useToast()
-
-  const handleTwitterTaskChange = (value: string) => {
-    setValue(value);
-    setIsTwitterTaskComplete(value === 'Yes');
+    if (name === 'retweetUrl') {
+      // Validate URL format (a basic check)
+      const urlPattern = /^(https?:\/\/)?(www\.)?twitter\.com\/\w+\/status\/\d+$/;
+      setIsRetweetUrlValid(urlPattern.test(value));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isTwitterTaskComplete) {
-      alert("Please complete the Twitter task before submitting.");
-      return;
-    }
-     fetch(scriptUrl, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),  // Stringify the form data
-  })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      alert(data.msg);
+    
+    fetch(scriptUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
     })
-    .catch(err => console.log(err));
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        alert(data.msg);
+      })
+      .catch(err => console.log(err));
+    
     setFormData({
       name: '',
-      wallet: ''
-    })
+      wallet: '',
+      retweetUrl: ''
+    });
+
     toast({
       title: 'Details submitted.',
-          description: "We've receieved your response",
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-    })
+      description: "We've received your response.",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+
     console.log('Form submitted:', formData);
-    // Add your form submission logic here
   };
 
   return (
@@ -128,39 +122,33 @@ const FormPage: React.FC<FormPageProps> = ({tasks}) => {
             />
           </FormControl>
 
-          <FormControl id="subscribe" isRequired mt={4}>
+          <FormControl id="retweetUrl" isRequired mt={4}>
             <FormLabel>
-              Have you followed{" "}
-              <a
-                href={tasks[0]?.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                color="red"
-              >
-                @Mongrel_btc
-              </a>?*{" "}
-              (<a
-                href={tasks[0]?.postUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                color="red"
-              >
-                LIKE+RT THIS TWEET
-              </a>)
+              Have you followed 
+              <a className="text-green-500 text-[15px]" href="https://x.com/mongrel_btc?s=21&t=b8FPrLo4XS9IvogfmKElfw"> @Mongrel_btc</a>?
+              (<a className="text-green-500 text-[15px]" href="https://x.com/mongrel_btc?s=21&t=b8FPrLo4XS9IvogfmKElfw">LIKE + RT "THIS TWEET </a>)
             </FormLabel>
-            <RadioGroup onChange={handleTwitterTaskChange} value={value}>
-              <Stack direction="row">
-                <Radio value="Yes">Yes</Radio>
-                <Radio value="No">No</Radio>
-              </Stack>
-            </RadioGroup>
+            <FormLabel>
+              Retweet URL
+            </FormLabel>
+            <Input
+              type="url"
+              name="retweetUrl"
+              value={formData.retweetUrl}
+              onChange={handleChange}
+              placeholder="https://twitter.com/..."
+              bg="white"
+              h={16}
+              border={'2px solid black'}
+              borderRadius={'15px'}
+            />
           </FormControl>
 
           <Button
             bg={'black'}
             mt={6}
             type="submit"
-            isDisabled={!isTwitterTaskComplete}
+            isDisabled={!isRetweetUrlValid}
             w={'100%'}
             h={14}
             color={'white'}
