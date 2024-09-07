@@ -125,8 +125,8 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
           <FormControl id="retweetUrl" isRequired mt={4}>
             <FormLabel>
               Have you followed 
-              <a className="text-green-500 text-[15px]" href={tasks[0].twitter} target="_blank"> @Mongrel_btc</a>?
-              (<a className="text-green-500 text-[15px]" href={tasks[0].postUrl} target="_blank">LIKE + RT "THIS TWEET </a>)
+              <a className="text-green-500 text-[15px]" href={tasks[0]?.twitter} target="_blank"> @Mongrel_btc</a>?
+              (<a className="text-green-500 text-[15px]" href={tasks[0]?.postUrl} target="_blank">LIKE + RT "THIS TWEET </a>)
             </FormLabel>
             <FormLabel>
               Retweet URL
