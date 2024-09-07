@@ -40,7 +40,7 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
 
     if (name === 'retweetUrl') {
       // Validate URL format (a basic check)
-     const urlPattern = /^(https?:\/\/)?(www\.)?x\.com\/\w+\/status\/\d+$/;
+     const urlPattern = /^(https?:\/\/)?(www\.)?x\.com\/\w+\/status\/\d+(\?.*)?$/;
       setIsRetweetUrlValid(urlPattern.test(value));
     }
   };
