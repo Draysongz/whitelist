@@ -19,7 +19,8 @@ interface FormPageProps {
   tasks: Task[]; // Expect an array of Task
 }
 
-const scriptUrl = "https://script.google.com/macros/s/AKfycbz6yPuqPdpX1ZKi9sIrXHeM0jamx-nQBJ4_HjbjRIBPcsKmYdquKsDDtmI0mcAiLSQ4YQ/exec"
+const scriptUrl =
+  "https://script.google.com/macros/s/AKfycbxMYTZr6_dbU4At1kePbEaTxIheVafPm1DHCY7sap1sjniuCk4r6riovNIS2yDYaeF8/exec";
 
 const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
   const [formData, setFormData] = useState<FormData>({
@@ -40,7 +41,7 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
 
     if (name === 'retweetUrl') {
       // Validate URL format (a basic check)
-      const urlPattern = /^(https?:\/\/)?(www\.)?twitter\.com\/\w+\/status\/\d+$/;
+      const urlPattern = /^(https?:\/\/)?(www\.)?(twitter\.com|x\.com)\/\w+\/status\/\d+$/;
       setIsRetweetUrlValid(urlPattern.test(value));
     }
   };
@@ -70,7 +71,7 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
     });
 
     toast({
-      title: 'Details submitted.',
+      title: 'Submitted.',
       description: "We've received your response.",
       status: 'success',
       duration: 3000,

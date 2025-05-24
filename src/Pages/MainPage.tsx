@@ -1,9 +1,8 @@
-import { Box, Button, Flex, Icon, Text, useBreakpointValue } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Box, Flex, Icon, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { FaDiscord } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 export default function MainPage() {
-    const navigate= useNavigate()
     return (
       <Box
         display={"flex"}
