@@ -40,14 +40,20 @@ useEffect(() => {
 
 console.log(tasks)
   return (
-    <Flex align={"center"} justify={"center"} minH={"100vh"} bgImage={'/bg.jpg'} bgRepeat={'no-repeat'} bgPosition={'center'} bgSize={'cover'} w={'100vw'}>
+    <Flex
+      align={"center"}
+      justify={"center"}
+      minH={"100vh"}
+      bgImage={"/aukstract.JPG"}
+      bgSize={"contain"}
+      w={"100vw"}
+    >
       <Box>
         <BrowserRouter>
           <Routes>
             <Route index element={<MainPage />} />
             <Route path="register" element={<FormPage tasks={tasks} />} />
             <Route path="/admin" element={<SocialForm />} />
- 
           </Routes>
         </BrowserRouter>
       </Box>

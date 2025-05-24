@@ -99,7 +99,7 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="@Mongrel_btc"
+              placeholder="@aukstract"
               bg="white"
               h={16}
               border={'2px solid black'}
@@ -108,13 +108,13 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
           </FormControl>
 
           <FormControl id="wallet" isRequired mt={4}>
-            <FormLabel>What is your Taproot wallet address?</FormLabel>
+            <FormLabel>What is your wallet address?</FormLabel>
             <Input
               type="text"
               name="wallet"
               value={formData.wallet}
               onChange={handleChange}
-              placeholder="bcp....."
+              placeholder="0x....."
               bg="white"
               h={16}
               border={'2px solid black'}
@@ -125,8 +125,8 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
           <FormControl id="retweetUrl" isRequired mt={4}>
             <FormLabel>
               Have you followed 
-              <a className="text-green-500 text-[15px]" href={tasks[0].twitter} target="_blank"> @Mongrel_btc</a>?
-              (<a className="text-green-500 text-[15px]" href={tasks[0].postUrl} target="_blank">LIKE + RT "THIS TWEET </a>)
+              <a className="text-green-500 text-[15px]" href={tasks[0]?.twitter} target="_blank"> @aukstract</a>?
+              (<a className="text-green-500 text-[15px]" href={tasks[0]?.postUrl} target="_blank">LIKE + RT "THIS TWEET </a>)
             </FormLabel>
             <FormLabel>
               Retweet URL
