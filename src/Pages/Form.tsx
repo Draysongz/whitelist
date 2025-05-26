@@ -29,7 +29,6 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
     retweetUrl: '',
   });
 
-  const [isRetweetUrlValid, setIsRetweetUrlValid] = useState<boolean>(false);
   const toast = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,12 +37,6 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
       ...prevData,
       [name]: value,
     }));
-
-    if (name === 'retweetUrl') {
-      // Validate URL format (a basic check)
-      const urlPattern = /^(https?:\/\/)?(www\.)?(twitter\.com|x\.com)\/\w+\/status\/\d+$/;
-      setIsRetweetUrlValid(urlPattern.test(value));
-    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -149,7 +142,6 @@ const FormPage: React.FC<FormPageProps> = ({ tasks }) => {
             bg={'black'}
             mt={6}
             type="submit"
-            isDisabled={!isRetweetUrlValid}
             w={'100%'}
             h={14}
             color={'white'}
