@@ -21,7 +21,7 @@ export default function MainPage() {
       >
         <Flex alignItems={"center"} justifyContent={"center"} gap={5}>
           <Icon as={FaDiscord} boxSize={6} />
-          <Link to={"https://x.com/aukstract?s=21&t=b8FPrLo4XS9IvogfmKElfw"} target="_blank">
+          <Link to={"https://x.com/aukstract_nft?s=21&t=b8FPrLo4XS9IvogfmKElfw"} target="_blank">
             <Icon as={BsTwitterX} boxSize={4} />
           </Link>
         </Flex>
